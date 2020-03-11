@@ -1,13 +1,23 @@
 const express = require('express');
-
+const postRouter = require("./posts/postRouter.js");
 const server = express();
 
-server.get('/', (req, res) => {
-  res.send(`<h2>Let's write some middleware!</h2>`);
+server.use(express.json());
+
+server.get("/", (req, res) => {
+  const query = req.query;
+
+  console.log("query", query);
+
+  res.status(200).json(query);
 });
 
-//custom middleware
 
-function logger(req, res, next) {}
+server.use("/posts", postRouter);
+
+
+
+//custom middleware in router
+
 
 module.exports = server;
