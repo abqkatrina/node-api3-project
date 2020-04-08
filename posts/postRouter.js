@@ -1,6 +1,5 @@
 const express = require('express');
 const post = require("./postDb.js");
-const user = require("../users/userDb.js");
 const router = express.Router();
 
 // from post, get all posts
@@ -19,34 +18,34 @@ router.get('/', (req, res) => {
 });
 
 // from user, get all users
-router.get('/users', (req, res) => {
-  user.get(req.query)
-    .then(user => {
-      res.status(200).json(user);
-    })
-    .catch(error => {
-      // log error to database
-      console.log(error);
-      res.status(500).json({
-        error: "The user information could not be retrieved."
-      });
-    });
-});
+// router.get('/users', (req, res) => {
+//   user.get(req.query)
+//     .then(user => {
+//       res.status(200).json(user);
+//     })
+//     .catch(error => {
+//       // log error to database
+//       console.log(error);
+//       res.status(500).json({
+//         error: "The user information could not be retrieved."
+//       });
+//     });
+// });
 
 //from user, get post by user id
-router.get('/:user_id', (req, res) => {
-  user.getUserPosts(req.body.id)
-    .then(post => {
-      res.status(200).json(post);
-    })
-    .catch(error => {
-      // log error to database
-      console.log(error);
-      res.status(500).json({
-        error: "The user information could not be retrieved."
-      });
-    });
-});
+// router.get('/:user_id', (req, res) => {
+//   user.getUserPosts(req.body.id)
+//     .then(post => {
+//       res.status(200).json(post);
+//     })
+//     .catch(error => {
+//       // log error to database
+//       console.log(error);
+//       res.status(500).json({
+//         error: "The user information could not be retrieved."
+//       });
+//     });
+// });
 
 //from post, get one post by id
 router.get('/:id', (req, res) => {
@@ -68,23 +67,23 @@ router.get('/:id', (req, res) => {
 });
 
 //from user, get one user by id
-router.get('/users/:user_id', (req, res) => {
-  user.getById(req.params.id)
-    .then(user => {
-      if (user) {
-        res.status(200).json(user);
-      } else {
-        res.status(404).json({ message: "The user with the specified ID does not exist." });
-      }
-    })
-    .catch(error => {
-      // log error to database
-      console.log(error);
-      res.status(500).json({
-        error: "The user information could not be retrieved."
-      });
-    });
-});
+// router.get('/users/:user_id', (req, res) => {
+//   user.getById(req.params.id)
+//     .then(user => {
+//       if (user) {
+//         res.status(200).json(user);
+//       } else {
+//         res.status(404).json({ message: "The user with the specified ID does not exist." });
+//       }
+//     })
+//     .catch(error => {
+//       // log error to database
+//       console.log(error);
+//       res.status(500).json({
+//         error: "The user information could not be retrieved."
+//       });
+//     });
+// });
 
 // from post, create post
 router.post('/', (req, res) => {
@@ -92,9 +91,9 @@ router.post('/', (req, res) => {
 });
 
 //from user, create user
-router.post('/users', (req, res) => {
-  user.insert(user)
-});
+// router.post('/users', (req, res) => {
+//   user.insert(user)
+// });
 
 //from post, delete post by id
 router.delete('/:id', (req, res) => {
@@ -116,23 +115,23 @@ router.delete('/:id', (req, res) => {
 });
 
 //from user, delete user by id
-router.delete('/users/:id', (req, res) => {
-  user.remove(req.params.id)
-  .then(count => {
-    if (count > 0) {
-      res.status(200).json({ message: "The user has been deleted" });
-    } else {
-      res.status(404).json({ message: "The user with the specified ID does not exist." });
-    }
-  })
-  .catch(error => {
-    // log error to database
-    console.log(error);
-    res.status(500).json({
-      error: "The user could not be removed"
-    });
-  });
-});
+// router.delete('/users/:id', (req, res) => {
+//   user.remove(req.params.id)
+//   .then(count => {
+//     if (count > 0) {
+//       res.status(200).json({ message: "The user has been deleted" });
+//     } else {
+//       res.status(404).json({ message: "The user with the specified ID does not exist." });
+//     }
+//   })
+//   .catch(error => {
+//     // log error to database
+//     console.log(error);
+//     res.status(500).json({
+//       error: "The user could not be removed"
+//     });
+//   });
+// });
 
 // from post, update post by id
 router.put('/:id', (req, res) => {
@@ -155,39 +154,39 @@ router.put('/:id', (req, res) => {
 });
 
 // from user, update user by id
-router.put('/users/:user_id', (req, res) => {
-  user.update(req.params.id, req.body)
-    .then(user => {
-      if (user) {
-        res.status(200).json(user);
-      } else {
-        res.status(404).json({ 
-            message: "The user with the specified ID does not exist." });
-      }
-    })
-    .catch(error => {
-      // log error to database
-      console.log(error);
-      res.status(500).json({
-        error: "The user information could not be modified.",
-      });
-    });
-});
+// router.put('/users/:user_id', (req, res) => {
+//   user.update(req.params.id, req.body)
+//     .then(user => {
+//       if (user) {
+//         res.status(200).json(user);
+//       } else {
+//         res.status(404).json({ 
+//             message: "The user with the specified ID does not exist." });
+//       }
+//     })
+//     .catch(error => {
+//       // log error to database
+//       console.log(error);
+//       res.status(500).json({
+//         error: "The user information could not be modified.",
+//       });
+//     });
+// });
 
 // custom middleware
 
-module.exports = function logger(req, res, next) {
-  const method = req.method;
-  const endpoint = req.originalUrl;
-  const timestamp = Date.now();
+// module.exports = function logger(req, res, next) {
+//   const method = req.method;
+//   const endpoint = req.originalUrl;
+//   const timestamp = Date.now();
 
-  console.log(`${method} to ${endpoint} at ${timestamp}`);
+//   console.log(`${method} to ${endpoint} at ${timestamp}`);
 
-  next();
+//   next();
 
-  // logs to the console the following information about each request: request method, request url, and a timestamp
-  // - this middleware runs on every request made to the API
-};
+//   // logs to the console the following information about each request: request method, request url, and a timestamp
+//   // - this middleware runs on every request made to the API
+// };
 
 module.exports = function validateUserId(req, res, next){
   req.user_id

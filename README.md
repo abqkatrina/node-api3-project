@@ -28,10 +28,10 @@ Follow these steps for completing your project.
 
 1. Write and implement four custom `middleware` functions, detailed below.
 2. Build an API to let clients perform CRUD operations on `users`.
-- C []
+- C [X]
 - R [X]
-- U []
-- D []
+- U [X]
+- D [X]
 3. Add endpoints to retrieve the list of `posts` for a `user` and to store a new `post` for a `user`.
 
 #### Custom Middleware Requirements
