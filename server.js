@@ -1,9 +1,15 @@
 const express = require('express');
 const postRouter = require("./posts/postRouter.js");
+const userRouter = require("./users/userRouter.js");
 const server = express();
 
-server.use(express.json());
+//middleware
 server.use(logger);
+server.use(express.json());
+
+//endpoints
+server.use("/posts", postRouter);
+server.use("/users", userRouter)
 
 // server.get("/", (req, res) => {
 //   const query = req.query;
@@ -14,12 +20,11 @@ server.use(logger);
 // });
 
 
-server.use("/posts", postRouter);
 
 
 
 //custom middleware
-module.exports = function logger(req, res, next) {
+function logger(req, res, next) {
   const method = req.method;
   const endpoint = req.originalUrl;
   const timestamp = Date.now();
