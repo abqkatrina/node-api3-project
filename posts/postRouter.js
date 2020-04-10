@@ -38,7 +38,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// from post, create post
+// from post, create post WORKS
 router.post('/', validatePost, (req, res) => {
   post.insert(req.body)
   .then(post => {
@@ -49,7 +49,7 @@ router.post('/', validatePost, (req, res) => {
   })
 });
 
-//from post, delete post by id
+//from post, delete post by id WORKS
 router.delete('/:id', (req, res) => {
   post.remove(req.params.id)
   .then(count => {
@@ -67,8 +67,8 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-// from post, update post by id
-router.put('/:id', (req, res) => {
+// from post, update post by id WORKS
+router.put('/:id', validatePost, (req, res) => {
   post.update(req.params.id, req.body)
     .then(post => {
       if (post) {

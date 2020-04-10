@@ -42,6 +42,7 @@ router.get('/:id', validateUserId, (req, res) => {
       });
   });
 
+
 //works
 router.get('/:id/posts', validateUserId, (req, res) => {
   user.getUserPosts(req.params.id)
@@ -55,10 +56,18 @@ router.get('/:id/posts', validateUserId, (req, res) => {
     });
   });});
 
+//works
 router.post('/', validateUser, (req, res) => {
   user.insert(req.body)
+  .then(user => {
+    res.send(200).json({ message : "user added"})
+  })
+  .catch(err => {
+    res.send(500).json({ message: "users crashed"})
+  })
 });
 
+//works
 router.delete('/:id', validateUserId, (req, res) => {
   user.remove(req.params.id)
   .then(count => {
@@ -76,6 +85,7 @@ router.delete('/:id', validateUserId, (req, res) => {
   });
 });
 
+//works
 router.put('/:id', validateUser, (req, res) => {
   user.update(req.params.id, req.body)
   .then(user => {
@@ -118,7 +128,6 @@ function validateUser(req, res, next) {
   // and respond with status `400` and `{ message: "missing required name field" }`
     res.send(400).json({ message: "missing required name field"})
   } else {
-  console.log(`${method} to ${endpoint}`);
   next(); 
   }
 }
